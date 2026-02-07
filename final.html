@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Forever Starts Here ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffdde1, #ff9ec1, #ffd3b6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+      position: relative;
+    }
+
+    /* Floating future emojis */
+    .future-float {
+      position: fixed;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      animation: riseForever 10s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes riseForever {
+      0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(-20vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px;
+      animation: dawnRise 2.5s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes dawnRise {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: #ff6b9d;
+      text-shadow: 0 0 25px rgba(255, 107, 157, 0.6);
+      animation: heartbeatForever 2s infinite;
+    }
+
+    @keyframes heartbeatForever {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeInText 3s forwards;
+      animation-delay: 1s;
+      margin-bottom: 30px;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+
+    /* Holding hands SVG - now pulsing */
+    .hands {
+      width: 280px;
+      margin: 40px auto;
+      opacity: 0;
+      animation: fadeInText 2s forwards;
+      animation-delay: 1.5s;
+      filter: drop-shadow(0 0 15px rgba(255, 107, 157, 0.5));
+    }
+
+    /* Optional future photo spot - e.g., couple pic */
+    .future-vision {
+      margin: 30px auto;
+      max-width: 300px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+      opacity: 0;
+      animation: fadeInText 2s forwards;
+      animation-delay: 2s;
+    }
+
+    .future-vision img {
+      width: 100%;
+      display: block;
+    }
+
+    .replay-btn {
+      padding: 15px 50px;
+      background: linear-gradient(135deg, #ff6b9d, #ff85c0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin: 20px;
+      font-weight: 500;
+      transition: all 0.4s;
+      box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+    }
+
+    .replay-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 35px rgba(255, 107, 157, 0.6);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating future emojis -->
+  <script>
+    const futureEmojis = ['💍', '❤️', '✨', '🌟', '💫'];
+    function createFloat() {
+      const f = document.createElement('div');
+      f.className = 'future-float';
+      f.innerText = futureEmojis[Math.floor(Math.random() * futureEmojis.length)];
+      f.style.left = Math.random() * 100 + 'vw';
+      f.style.animationDuration = (8 + Math.random() * 8) + 's';
+      f.style.animationDelay = Math.random() * 4 + 's';
+      document.body.appendChild(f);
+      setTimeout(() => f.remove(), 16000);
+    }
+    setInterval(createFloat, 1000);
+  </script>
+
+  <div class="container">
+    <!-- Optional future photo - add your couple pic here -->
+    <div class="future-vision">
+      <img src="photos/photo6.jpg" alt="Our future glimpse"> <!-- Replace with your raw GitHub link if needed -->
+    </div>
+
+    <!-- Holding hands illustration -->
+    <svg class="hands" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 60 C60 40, 90 40, 110 60" stroke="#ff6b9d" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M110 60 C130 80, 160 80, 180 60" stroke="#ff6b9d" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M180 60 C200 40, 230 40, 260 60" stroke="#ff6b9d" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <h1>Our Forever Starts Here ✨</h1>
+
+    <p>
+      This isn't the end of our story, baby…<br>
+      It's the beautiful beginning — where every laugh, every dream, every quiet moment becomes ours.<br><br>
+      
+      I see us growing together: more adventures, more inside jokes, more "you and me" against the world.<br>
+      Hand in hand, heart to heart — turning ordinary days into magic we'll never forget.<br><br>
+      
+      You & me? We're just getting started. Can't wait for all the tomorrows with you 🤍💕
+    </p>
+
+    <button class="replay-btn" onclick="location.href='index.html'">
+      Let's Begin Again ❤️
+    </button>
+  </div>
+
+</body>
+</html>
