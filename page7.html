@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>One Last Question 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #ffdde1, #ee9ca7, #2c2c54);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      color: white;
+    }
+
+    /* Floating rose petals + rings */
+    .petals, .rings {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .petal, .ring {
+      position: absolute;
+      font-size: 1.8rem;
+      opacity: 0.7;
+      animation: floatUp 14s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.9; }
+      85% { opacity: 0.9; }
+      100% { transform: translateY(-30vh) rotate(720deg); opacity: 0; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      padding: 45px 35px;
+      border-radius: 30px;
+      text-align: center;
+      color: white;
+      width: 90%;
+      max-width: 480px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+      z-index: 3;
+      border: 1px solid rgba(255, 182, 193, 0.3);
+      animation: fadeInContainer 1.5s ease-out;
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.2rem;
+      margin-bottom: 12px;
+      color: #ff9ec1;
+      text-shadow: 0 0 20px rgba(255, 158, 193, 0.6);
+    }
+
+    .sub {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .question {
+      font-size: 1.8rem;
+      margin-bottom: 35px;
+      line-height: 1.4;
+      font-family: 'Dancing Script', cursive;
+      color: #ffd3b6;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .buttons button {
+      padding: 16px 24px;
+      border: none;
+      border-radius: 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-weight: 500;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #ff9ec1, #ff6b9d);
+      color: white;
+    }
+
+    .yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 35px rgba(255, 107, 157, 0.5);
+    }
+
+    .yes::after {
+      content: "💍";
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+      transition: all 0.6s;
+    }
+
+    .yes:hover::after {
+      animation: spinRing 1.5s linear infinite;
+    }
+
+    @keyframes spinRing {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* ... (rest of your button styles for no, think, escape, notready remain the same) ... */
+
+    /* Popup styles remain the same */
+
+    /* Yes screen - enhanced */
+    .yes-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, #ffdde1, #ff9ec1);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #4a2c3f;
+      z-index: 10;
+      text-align: center;
+      padding: 40px 20px;
+      animation: yesGlow 1s ease-out;
+    }
+
+    @keyframes yesGlow {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .yes-screen h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.5rem;
+      margin-bottom: 25px;
+      color: #e84a5f;
+      text-shadow: 0 0 25px rgba(232, 74, 95, 0.6);
+    }
+
+    .yes-screen p {
+      font-size: 1.45rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .transition-text {
+      font-size: 1.6rem;
+      color: #ff6b9d;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeInText 2s forwards;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+
+    .replay, .continue-btn {
+      padding: 16px 50px;
+      border-radius: 40px;
+      background: white;
+      color: #e84a5f;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      margin: 12px;
+      font-weight: 600;
+      transition: all 0.4s;
+      box-shadow: 0 10px 30px rgba(232, 74, 95, 0.25);
+      animation: pulseBtn 2s infinite;
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .replay:hover, .continue-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(232, 74, 95, 0.4);
+    }
+
+    .hidden-whisper {
+      margin-top: 25px;
+      font-size: 1.25rem;
+      color: #ff9ec1;
+      cursor: pointer;
+      text-decoration: underline;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .hidden-whisper:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating petals + rings -->
+  <div class="petals" id="petals"></div>
+  <div class="rings" id="rings"></div>
+
+  <audio id="music" loop autoplay volume="0.15">
+    <source src="https://assets.codepen.io/243235/soft-romantic.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <h1>😌 One Last Question</h1>
+    <div class="sub">No running. No hiding. Just us.</div>
+
+    <div class="question">
+      Will you be my Valentine<br>forever & ever? 💖
+    </div>
+
+    <div class="buttons">
+      <button class="yes" onclick="yesClick()">Yes 💘</button>
+      <button class="no" id="noBtn" onclick="noClick()">No 🙃</button>
+      <button class="think" onclick="thinkClick()">Let me think 🤔</button>
+      <button class="escape" id="escapeBtn">Try to escape 🏃‍♂️</button>
+      <button class="notready" onclick="notReady()">Not ready 😅</button>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-box" id="popupText"></div>
+  </div>
+
+  <!-- YES SCREEN -->
+  <div class="yes-screen" id="yesScreen">
+    <h2>YAYYYY 🥹❤️</h2>
+    <p>You just made my world spin…<br>I promise forever will be our best adventure yet 💕</p>
+
+    <div class="transition-text">Our forever begins right now… 💫</div>
+
+    <div class="hidden-whisper" onclick="whisperLove()">P.S. Click for a secret from my heart 💞</div>
+
+    <button class="replay" onclick="location.reload()">🔁 Replay Our Story</button>
+
+    <button class="continue-btn" onclick="location.href='final.html'">
+      Continue Our Forever ❤️
+    </button>
+  </div>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popupText = document.getElementById("popupText");
+    const music = document.getElementById("music");
+
+    // Floating petals
+    const petalEmojis = ['🌹', '🌸', '💕', '✨'];
+    function createPetal() {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.innerText = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (12 + Math.random() * 8) + 's';
+      document.getElementById('petals').appendChild(p);
+      setTimeout(() => p.remove(), 20000);
+    }
+    setInterval(createPetal, 800);
+
+    // Floating rings on Yes screen
+    function createRing() {
+      const r = document.createElement('div');
+      r.className = 'ring';
+      r.innerText = '💍';
+      r.style.left = Math.random() * 100 + 'vw';
+      r.style.animationDuration = (10 + Math.random() * 6) + 's';
+      r.style.animationDelay = Math.random() * 3 + 's';
+      document.getElementById('rings').appendChild(r);
+      setTimeout(() => r.remove(), 18000);
+    }
+
+    // YES - trigger rings
+    function yesClick() {
+      music.volume = 0.25;
+      document.getElementById("yesScreen").style.display = "flex";
+      setInterval(createRing, 1200); // rings keep floating
+
+      // Enhanced confetti
+      for(let i = 0; i < 80; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.innerText = ['❤️', '💖', '💕', '✨', '🌹'][Math.floor(Math.random() * 5)];
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "-10px";
+        c.style.animationDuration = (3 + Math.random() * 4) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 7000);
+      }
+    }
+
+    // Whisper
+    function whisperLove() {
+      alert("I love you more than all the stars, Ashu… and I'm so glad you're mine 🥰💍");
+    }
+
+    // Other functions (noClick, thinkClick, escape, notReady, closePopup) remain the same as your original code
+    // ... paste them here if needed ...
+
+  </script>
+
+</body>
+</html>

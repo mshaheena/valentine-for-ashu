@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Little Game For You 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #2c003e, #512b58, #7c3c8e);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Soft glowing overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(255, 105, 180, 0.12), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating cute elements */
+    .floaties {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .float-item {
+      position: absolute;
+      font-size: 26px;
+      opacity: 0.7;
+      animation: gentleFloat 14s linear infinite;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(100vh) scale(0.7) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.9; }
+      85% { opacity: 0.9; }
+      100% { transform: translateY(-30vh) scale(1.1) rotate(720deg); opacity: 0; }
+    }
+
+    /* Balloons - softer and slower */
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      font-size: 38px;
+      opacity: 0.75;
+      animation: floatUp 18s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      to { transform: translateY(-140vh) rotate(15deg); }
+    }
+
+    .card {
+      position: relative;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 182, 193, 0.18);
+      border-radius: 28px;
+      padding: 35px 30px;
+      width: 90%;
+      max-width: 460px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      margin: 20px auto;
+      animation: cardAppear 1.2s ease-out;
+    }
+
+    @keyframes cardAppear {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #ff9ec1;
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+      text-shadow: 0 0 20px rgba(255, 158, 193, 0.6);
+      animation: softPulse 3s infinite;
+    }
+
+    @keyframes softPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .subtitle {
+      color: #e0c3ff;
+      font-size: 1.05rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .level {
+      font-size: 0.95rem;
+      color: #c9a0ff;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .option {
+      background: rgba(255, 182, 193, 0.12);
+      border: 1px solid rgba(255, 182, 193, 0.25);
+      margin: 12px 0;
+      padding: 16px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .option:hover {
+      background: rgba(255, 105, 180, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+    }
+
+    button, .next-btn {
+      padding: 14px 36px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff85c0, #ff4d94);
+      color: white;
+      font-size: 1.15rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(255, 77, 148, 0.5);
+      transition: all 0.35s;
+    }
+
+    button:hover, .next-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 15px 35px rgba(255, 77, 148, 0.7);
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .popup .card {
+      max-width: 380px;
+      animation: pop 0.5s ease-out;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Celebration hearts */
+    .heart {
+      position: fixed;
+      font-size: 28px;
+      pointer-events: none;
+      animation: floatHeart 2.8s linear forwards;
+      z-index: 5;
+    }
+
+    @keyframes floatHeart {
+      to { transform: translateY(-180px) scale(1.4); opacity: 0; }
+    }
+
+    .emoji {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating cute things -->
+  <div class="floaties" id="floaties"></div>
+
+  <!-- Balloons -->
+  <script>
+    const balloonEmojis = ['💗', '💕', '✨', '🌸', '🫧', '💫'];
+    for(let i = 0; i < 10; i++) {
+      const b = document.createElement("div");
+      b.className = "balloon";
+      b.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+      b.style.left = Math.random() * 100 + "vw";
+      b.style.animationDuration = (14 + Math.random() * 12) + "s";
+      b.style.animationDelay = Math.random() * 8 + "s";
+      document.body.appendChild(b);
+    }
+  </script>
+
+  <!-- INTRO -->
+  <div class="card" id="intro">
+    <div class="emoji">💖✨💫</div>
+    <h1>A Little Game For You, Ashu 💕</h1>
+    <div class="subtitle">
+      20 magical questions… straight from my heart to yours 🥰<br><br>
+      Get ready to laugh, blush, and discover my wild sides 😏
+    </div>
+    <button onclick="startGame()">Start the Game 💘</button>
+  </div>
+
+  <!-- GAME -->
+  <div class="card" id="game" style="display:none">
+    <div class="level" id="level"></div>
+    <div id="question"></div>
+    <div id="options"></div>
+  </div>
+
+  <script>
+    const questions = [
+      // Funny/Teasing start
+      {q: "If I turn into a superhero, what's my power? 🦸‍♀️", o: ["Invisible (to hide my snacks)", "Mind-reading (to know your secrets 😏)", "Super-speed (to steal your hoodies faster)"], a: 1},
+      {q: "What's the silliest thing I do when I'm hangry? 😤", o: ["Dance like a zombie", "Text you dramatic poems", "Pretend I'm a cat and meow"], a: 1},
+
+      {checkpoint: "Heyyy 😌 are you smiling at my chaos already?"},
+
+      // Romantic/Magical
+      {q: "In our fairy tale, you're the prince who...?", o: ["Saves the kingdom with a sword", "Steals my heart with one quiet look ✨", "Dances under the stars forever"], a: 1},
+      {q: "Our love song would be about... 🎶", o: ["Epic battles and victories", "Whispers in the rain that feel like magic", "Chasing sunsets hand in hand"], a: 1},
+
+      // Jealous side
+      {q: "If another girl smiles at you, I secretly... 😏", o: ["High-five her (teamwork!)", "Glare like a dragon guarding treasure", "Plan a cute revenge hug on you"], a: 1},
+      
+      {checkpoint: "Be honest baby 🙈 feeling my jealous sparkles yet?"},
+
+      // Dreamy
+      {q: "In my dreams, we escape to a hidden world where... 🌙", o: ["Build a castle of clouds", "Wander starry forests holding hands", "Race shooting stars on broomsticks"], a: 1},
+      {q: "Our forever looks like lazy mornings...?", o: ["With coffee and world domination plans", "Tangled in sheets, whispering secrets till noon 💭", "Planning trips to imaginary islands"], a: 1},
+      {q: "If we could time travel, I'd take you to... ⏳", o: ["Dino era for fun chases", "A quiet 1800s garden, just us and fireflies", "Our future, peeking at wedding dances"], a: 1},
+
+      // Needy/Vulnerable
+      {q: "On bad days, I need you to... 🥺", o: ["Tell epic jokes till I snort", "Hold me tight and say nothing — your silence is my safe place", "Send puppy videos (but hug after)"], a: 1},
+      {q: "When I overthink at 2 AM, your text should be... 📲", o: ["A funny meme to distract", "'I'm here, baby — go to sleep in my arms' (even if virtual) ❤️", "A playlist of our songs"], a: 1},
+      {q: "I get needy and want... (don't judge me 😅)", o: ["All your hoodies forever", "Your hand in mine, like we'll never let go", "Late-night calls just hearing you breathe"], a: 1},
+
+      {checkpoint: "Tell me cutie 😜 did I just make your heart race a little?"},
+
+      // Mix: Funny + Romantic
+      {q: "Our zombie apocalypse team-up? 🧟", o: ["I fight, you cook brains", "You protect me, I make bad puns to keep us laughing 💕", "We build a fort of pillows"], a: 1},
+      {q: "If I could bottle your magic, it'd be... 🧪", o: ["Endless energy drinks", "The smile that turns my storms to rainbows 🌈", "A potion for infinite cuddles"], a: 1},
+
+      // Dreamy + Jealous
+      {q: "In a crowded room, my eyes search for... 👀", o: ["The snack table first", "You — because you're my favorite view (and only yours 😠)", "The exit to steal you away"], a: 1},
+
+      // Needy + Funny
+      {q: "When I'm clingy, blame... 🤗", o: ["My cat (she started it)", "Your hugs — they're addicting, and now I can't stop wanting more 🥰", "The full moon (werewolf vibes)"], a: 1},
+      {q: "My guilty pleasure with you is... 😌", o: ["Stealing your fries mid-bite", "Needing your 'goodnight' text like air — don't ever stop", "Dancing badly in the kitchen"], a: 1},
+
+      // Grand romantic close
+      {q: "What do I whisper in my dreams about us? 💭", o: ["Adventure lists", "You're my always, my chaos, my calm — forever woven into me ✨", "To-do chores (kidding!)"], a: 1},
+      {q: "If love was a spell, ours would... 🪄", o: ["Make us invisible to drama", "Turn every ordinary moment into magic, just by being us", "Summon endless pizza (practical magic)"], a: 1}
+    ];
+
+    let current = 0;
+
+    function startGame(){
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("game").style.display = "block";
+      loadQuestion();
+    }
+
+    function loadQuestion(){
+      const q = questions[current];
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("level").innerText = `Question ${current+1} / ${questions.length}`;
+
+      if(q.checkpoint){
+        document.getElementById("question").innerHTML = `<h2 style="color:#ff9ec1">${q.checkpoint}</h2>`;
+        ["Yes 🥰","No 😌"].forEach((text, idx) => {
+          const opt = document.createElement("div");
+          opt.className = "option";
+          opt.innerText = text;
+          opt.onclick = () => showPopup(
+            idx === 0 ? "Awww baby 🥹💖 that makes my heart so happy!" : "It’s okayy 😚 I’ll make you smile soon 💕",
+            true
+          );
+          document.getElementById("options").appendChild(opt);
+        });
+      } else {
+        document.getElementById("question").innerHTML = `<h2>${q.q}</h2>`;
+        q.o.forEach((text, idx) => {
+          const opt = document.createElement("div");
+          opt.className = "option";
+          opt.innerText = text;
+          opt.onclick = () => checkAnswer(idx);
+          document.getElementById("options").appendChild(opt);
+        });
+      }
+    }
+
+    function checkAnswer(selected){
+      if(selected === questions[current].a){
+        celebrate();
+        showPopup("Yes baby! 😍 You really get me — my heart's doing flips 💞", true);
+      } else {
+        showPopup("Aww, so close! 🥰 But try again — I know you know this side of me 💕", false);
+      }
+    }
+
+    function showPopup(message, canProceed){
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.innerHTML = `
+        <div class="card">
+          <h2 style="margin-bottom:20px">${message}</h2>
+          <button onclick="closePopup(this.parentElement.parentElement, ${canProceed})">Continue 💗</button>
+        </div>`;
+      document.body.appendChild(popup);
+    }
+
+    function closePopup(popupElement, next){
+      popupElement.remove();
+      if(next){
+        current++;
+        if(current < questions.length) loadQuestion();
+        else finishGame();
+      }
+    }
+
+    function celebrate(){
+      for(let i = 0; i < 16; i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = ['💖','💕','✨','🌸'][Math.floor(Math.random()*4)];
+        h.style.left = Math.random()*100 + "vw";
+        h.style.bottom = "0px";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 3500);
+      }
+    }
+
+    function finishGame(){
+      document.getElementById("game").innerHTML = `
+        <div class="emoji">🥰💞✨</div>
+        <h1>Game Completed 🎀</h1>
+        <p style="font-size:1.15rem; line-height:1.7; margin:25px 0;">
+          Wow, Ashu... you just unlocked every hidden corner of my heart 🥹❤️<br><br>
+          From my silly dances to my needy whispers — thank you for seeing *me*.<br>
+          Ready for the next spell? 💫
+        </p>
+        <a href="page2.html" class="next-btn">Next Chapter ➜</a>
+      `;
+    }
+
+    // Create floating cute items
+    const cuteEmojis = ['💗','💕','✨','🌸','🫧','🧸','🐻','💫'];
+    function createFloaty(){
+      const f = document.createElement('div');
+      f.className = 'float-item';
+      f.innerText = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
+      f.style.left = Math.random() * 100 + '%';
+      f.style.top = Math.random() * 60 + '%';
+      document.getElementById('floaties').appendChild(f);
+      setTimeout(() => f.remove(), 20000);
+    }
+    setInterval(createFloaty, 1200);
+  </script>
+
+</body>
+</html>
