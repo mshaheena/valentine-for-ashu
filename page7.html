@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>One Last Question 💘</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
   <style>
     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       user-select: none;
       -webkit-user-select: none;
     }
@@ -108,6 +109,8 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
+      pointer-events: auto;          /* ← important fix */
+      touch-action: manipulation;    /* ← important for mobile taps */
     }
 
     .yes {
@@ -139,11 +142,70 @@
       to { transform: translateY(-50%) rotate(360deg); }
     }
 
-    /* ... (rest of your button styles for no, think, escape, notready remain the same) ... */
+    .no { background: #6c757d; color: white; }
+    .think { background: #8c9eff; color: white; }
+    .escape { background: #495057; color: white; }
+    .notready { background: #e9ecef; color: #495057; }
 
-    /* Popup styles remain the same */
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      padding: 20px;
+    }
 
-    /* Yes screen - enhanced */
+    .popup-box {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 35px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 350px;
+      animation: popUp 0.6s ease-out;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-box button {
+      padding: 12px 35px;
+      background: linear-gradient(135deg, #ff9ec1, #ff6b9d);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 15px;
+      transition: all 0.3s;
+      pointer-events: auto;
+    }
+
+    .popup-box button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Confetti & hearts */
+    .confetti {
+      position: fixed;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 6;
+      animation: fallConfetti 6s linear forwards;
+    }
+
+    @keyframes fallConfetti {
+      to { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Yes screen */
     .yes-screen {
       position: fixed;
       inset: 0;
@@ -205,6 +267,7 @@
       transition: all 0.4s;
       box-shadow: 0 10px 30px rgba(232, 74, 95, 0.25);
       animation: pulseBtn 2s infinite;
+      pointer-events: auto;
     }
 
     @keyframes pulseBtn {
@@ -225,6 +288,7 @@
       text-decoration: underline;
       opacity: 0.85;
       transition: opacity 0.3s;
+      pointer-events: auto;
     }
 
     .hidden-whisper:hover {
@@ -310,7 +374,7 @@
       setTimeout(() => r.remove(), 18000);
     }
 
-    // YES - trigger rings
+    // YES
     function yesClick() {
       music.volume = 0.25;
       document.getElementById("yesScreen").style.display = "flex";
@@ -334,10 +398,53 @@
       alert("I love you more than all the stars, Ashu… and I'm so glad you're mine 🥰💍");
     }
 
-    // Other functions (noClick, thinkClick, escape, notReady, closePopup) remain the same as your original code
-    // ... paste them here if needed ...
+    // NO
+    function noClick() {
+      popupText.innerHTML = "😏 Nice try, baby…<br>But deep down, we both know the answer 💘<br><button onclick='closePopup()'>Choose Again ❤️</button>";
+      popup.style.display = "flex";
+      document.getElementById("noBtn").style.display = "none";
+    }
 
+    // THINK
+    function thinkClick() {
+      popupText.innerHTML = "🤔 Thinking too long? My heart can't wait that long 😌<br><button onclick='closePopup()'>Back to Yes 💕</button>";
+      popup.style.display = "flex";
+    }
+
+    // ESCAPE
+    const escape = document.getElementById("escapeBtn");
+    escape.addEventListener("mouseover", () => {
+      escape.style.position = "absolute";
+      escape.style.left = Math.random() * 80 + "%";
+      escape.style.top = Math.random() * 80 + "%";
+
+      // Heart trail
+      for(let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          let trail = document.createElement("div");
+          trail.innerText = "💖";
+          trail.style.position = "absolute";
+          trail.style.left = escape.style.left;
+          trail.style.top = escape.style.top;
+          trail.style.fontSize = "1.2rem";
+          trail.style.pointerEvents = "none";
+          trail.style.animation = "fallConfetti 3s linear forwards";
+          document.body.appendChild(trail);
+          setTimeout(() => trail.remove(), 3000);
+        }, i * 200);
+      }
+    });
+
+    // NOT READY
+    function notReady() {
+      popupText.innerHTML = "❌ 'Not ready' isn't in our love story, cutie 😜<br>But I'm here whenever you are 💕<br><button onclick='closePopup()'>Yes, Please ❤️</button>";
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      popup.style.display = "none";
+      document.getElementById("noBtn").style.display = "block";
+    }
   </script>
-
 </body>
 </html>
