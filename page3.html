@@ -181,34 +181,35 @@ function show(msg){
   document.body.appendChild(p);
 }
 </script>
-<!-- Romantic Instrumental Music - River Flows in You -->
-<audio id="bgMusic" loop volume="0.5">
+<!-- Soft Romantic Music - River Flows in You (invisible auto-start) -->
+<audio id="romanticMusic" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
 <script>
-  const music = document.getElementById('bgMusic');
+  const music = document.getElementById('romanticMusic');
+  music.volume = 0.28;
 
-  // Try to play after first user interaction (required for mobile)
-  function startMusic() {
+  // Start music after first real user tap/click anywhere on the page
+  function tryPlay() {
     music.play().catch(() => {
       // Autoplay blocked - will retry on next tap
     });
   }
 
-  // Start on first touch (mobile) or click (desktop)
-  document.addEventListener('touchstart', startMusic, { once: true });
-  document.addEventListener('click', startMusic, { once: true });
+  document.addEventListener('touchstart', tryPlay, { once: true });
+  document.addEventListener('click', tryPlay, { once: true });
 
-  // Also try again when page becomes visible (good for switching tabs)
+  // Keep trying when page becomes active again (good when switching tabs)
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      music.play().catch(() => {});
+    if (!document.hidden && music.paused) {
+      tryPlay();
     }
   });
 </script>
+</script>
 </body>
 </html>
+
 
 
