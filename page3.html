@@ -181,26 +181,9 @@ function show(msg){
   document.body.appendChild(p);
 }
 </script>
-<button id="testMusic" style="position:fixed; bottom:100px; left:50%; transform:translateX(-50%); padding:15px 40px; background:#ff6b9d; color:white; border:none; border-radius:30px; font-size:1.2rem; cursor:pointer; z-index:9999;">
-  Test Music (Tap me!)
-</button>
-
-<audio id="testAudio">
-  <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-  document.getElementById('testMusic').onclick = () => {
-    const audio = document.getElementById('testAudio');
-    audio.volume = 0.6;
-    audio.play()
-      .then(() => alert("Music started! You should hear soft piano now 🎶"))
-      .catch(e => alert("Error: " + e.message));
-  };
-</script>
-</script>
 </body>
 </html>
+
 
 
 
