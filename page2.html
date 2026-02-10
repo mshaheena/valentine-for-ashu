@@ -352,6 +352,32 @@
       }
     });
   </script>
+<!-- Soft Romantic Music - River Flows in You (invisible auto-start) -->
+<audio id="romanticMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+  const music = document.getElementById('romanticMusic');
+  music.volume = 0.28;
+
+  // Start music after first real user tap/click anywhere on the page
+  function tryPlay() {
+    music.play().catch(() => {
+      // Autoplay blocked - will retry on next tap
+    });
+  }
+
+  document.addEventListener('touchstart', tryPlay, { once: true });
+  document.addEventListener('click', tryPlay, { once: true });
+
+  // Keep trying when page becomes active again (good when switching tabs)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && music.paused) {
+      tryPlay();
+    }
+  });
+</script>
 </body>
+
 </html>
