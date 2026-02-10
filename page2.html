@@ -298,44 +298,68 @@
         </div>
       </div>
 
-      <a href="page3.html" class="next-btn">Continue Our Story ➜</a>
+    
+
+  <!-- Next button after letter -->
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="page3.html" class="next-btn">Continue Our Story ➜</a>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- Soft Romantic Music - River Flows in You with visible toggle button -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <button id="musicToggle" style="
+      background: rgba(255, 107, 157, 0.35);
+      border: none;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">🎵</button>
+  </div>
+
+  <audio id="romanticMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    // Unlock function (your original)
     function unlock() {
-      const input = document.getElementById("code").value.trim();
-      // You can change this date anytime — it's your special one
-      if (input === "5/22" || input === "05/22" || input === "522" || input === "05-22") {
-        document.getElementById("lock").style.display = "none";
-        document.getElementById("letter").style.display = "block";
-
-        // Start subtle heartbeat sound
-        const hb = document.getElementById("heartbeat");
-        hb.volume = 0.12;
-        hb.play().catch(() => {});
-
-        // Optional: tiny confetti hearts after 2 seconds
+      const v = document.getElementById("code").value.trim();
+      if(v==="5/22" || v==="05/22" || v==="522" || v==="05-22"){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("letter").style.display="block";
+        document.getElementById("heartbeat").play().catch(() => {});
+        // tiny confetti hearts
         setTimeout(() => {
-          for(let i = 0; i < 12; i++) {
-            let h = document.createElement('div');
-            h.innerText = '💞';
-            h.style.position = 'fixed';
-            h.style.fontSize = '2rem';
-            h.style.left = Math.random()*100 + 'vw';
-            h.style.top = '-10vh';
-            h.style.pointerEvents = 'none';
-            h.style.animation = 'rise 6s linear forwards';
+          for(let i=0;i<12;i++){
+            const h=document.createElement("div");
+            h.innerText="💞";
+            h.style.position="fixed";
+            h.style.fontSize="2rem";
+            h.style.left=Math.random()*100+"vw";
+            h.style.top="-10vh";
+            h.style.pointerEvents="none";
+            h.style.animation="rise 6s linear forwards";
             document.body.appendChild(h);
-            setTimeout(() => h.remove(), 7000);
+            setTimeout(()=>h.remove(),7000);
           }
         }, 1800);
       } else {
-        alert("That’s not our key yet… try again baby 💕");
+        alert("That’s not the right key… try again 💕");
       }
     }
 
-    // Optional: click anywhere on letter to make tiny sparkle
+    // Click sparkle
     document.addEventListener('click', (e) => {
       if (document.getElementById('letter').style.display === 'block') {
         const sparkle = document.createElement('div');
@@ -351,33 +375,39 @@
         setTimeout(() => sparkle.remove(), 4500);
       }
     });
-  </script>
-<!-- Soft Romantic Music - River Flows in You (invisible auto-start) -->
-<audio id="romanticMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
-</audio>
 
-<script>
-  const music = document.getElementById('romanticMusic');
-  music.volume = 0.28;
+    // ───────────────────────────────────────────────
+    //          MUSIC CONTROL - River Flows in You
+    // ───────────────────────────────────────────────
+    const music = document.getElementById('romanticMusic');
+    const toggle = document.getElementById('musicToggle');
+    music.volume = 0.28;
 
-  // Start music after first real user tap/click anywhere on the page
-  function tryPlay() {
-    music.play().catch(() => {
-      // Autoplay blocked - will retry on next tap
+    // Toggle play/pause when button is clicked
+    toggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().then(() => {
+          toggle.textContent = '🔇'; // show mute icon when playing
+        }).catch(e => {
+          console.log("Play failed:", e);
+          alert("Tap again or check your phone sound settings 💕");
+        });
+      } else {
+        music.pause();
+        toggle.textContent = '🎵';
+      }
     });
-  }
 
-  document.addEventListener('touchstart', tryPlay, { once: true });
-  document.addEventListener('click', tryPlay, { once: true });
+    // Try to auto-play after first real tap anywhere on page
+    const startMusic = () => {
+      if (music.paused) {
+        music.play().catch(() => {});
+      }
+    };
 
-  // Keep trying when page becomes active again (good when switching tabs)
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && music.paused) {
-      tryPlay();
-    }
-  });
-</script>
+    document.body.addEventListener('click', startMusic, { once: true });
+    document.body.addEventListener('touchstart', startMusic, { once: true });
+  </script>
+
 </body>
-
 </html>
