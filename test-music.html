@@ -1,20 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Music Test</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 { margin-bottom: 20px; }
+    p { margin-bottom: 40px; font-size: 1.2rem; }
+
+    /* Important fix: Allow clicking on buttons */
+    button, a, input, select, textarea {
+      user-select: auto !important;
+      -webkit-user-select: auto !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+    }
+
+    #playBtn {
+      padding: 20px 60px;
+      font-size: 24px;
+      background: #ff6b9d;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+      transition: all 0.3s;
+    }
+
+    #playBtn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 107, 157, 0.6);
+    }
+  </style>
 </head>
-<body style="background:#111; color:white; text-align:center; padding:100px;">
+<body>
+
   <h1>Test - Tap the button</h1>
   <p>Tap the button below — you should hear soft piano</p>
 
-  <button onclick="document.getElementById('test').play()" style="padding:20px 60px; font-size:24px; background:#ff6b9d; color:white; border:none; border-radius:30px; cursor:pointer;">
-    Play Music 🎵
-  </button>
+  <button id="playBtn">Play Music 🎵</button>
 
-  <audio id="test" loop>
+  <p style="margin-top:40px;">
+    If you hear music after tapping → problem solved!<br>
+    If not → tell me what happens
+  </p>
+
+  <audio id="testAudio" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
   </audio>
 
-  <p style="margin-top:40px;">If you hear music after tapping → problem solved!<br>If not → tell me what happens</p>
+  <script>
+    document.getElementById('playBtn').onclick = function() {
+      const audio = document.getElementById('testAudio');
+      audio.volume = 0.4;
+      audio.play()
+        .then(() => {
+          alert("Music started! You should hear soft piano now 🎶");
+        })
+        .catch(e => {
+          alert("Error: " + e.message + "\n\nTry: \n1. Check laptop volume\n2. Click speaker icon in address bar → Allow sound\n3. Refresh page");
+        });
+    };
+  </script>
+
 </body>
 </html>
