@@ -307,30 +307,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Romantic Background Music with toggle button -->
-  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button id="musicToggle" style="
-      background: rgba(255, 107, 157, 0.35);
-      border: none;
-      border-radius: 50%;
-      width: 54px;
-      height: 54px;
-      font-size: 1.8rem;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 5px 18px rgba(0,0,0,0.3);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    ">🎵</button>
-  </div>
-
-  <audio id="romanticMusic" loop>
-     <source src="https://www.soundjay.com/buttons/beep-07.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
     // Unlock function
     function unlock() {
@@ -381,39 +357,9 @@
       }
     });
 
-    // ───────────────────────────────────────────────
-    //          MUSIC CONTROL - River Flows in You
-    // ───────────────────────────────────────────────
-    const music = document.getElementById('romanticMusic');
-    const toggle = document.getElementById('musicToggle');
-    music.volume = 0.28;
-
-    // Toggle play/pause when button is clicked
-    toggle.addEventListener('click', () => {
-      if (music.paused) {
-        music.play().then(() => {
-          toggle.textContent = '🔇'; // show mute icon when playing
-        }).catch(e => {
-          console.log("Play failed:", e);
-          alert("Tap again or check your sound settings dear 💕");
-        });
-      } else {
-        music.pause();
-        toggle.textContent = '🎵';
-      }
-    });
-
-    // Try to auto-play after first real tap anywhere on page
-    const startMusic = () => {
-      if (music.paused) {
-        music.play().catch(() => {});
-      }
-    };
-
-    document.body.addEventListener('click', startMusic, { once: true });
-    document.body.addEventListener('touchstart', startMusic, { once: true });
   </script>
 
 </body>
 </html>
+
 
