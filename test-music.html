@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Test</title>
+</head>
+<body style="background:#111; color:white; text-align:center; padding:100px;">
+  <h1>Test - Tap the button</h1>
+  <p>Tap the button below — you should hear soft piano</p>
+
+  <button onclick="document.getElementById('test').play()" style="padding:20px 60px; font-size:24px; background:#ff6b9d; color:white; border:none; border-radius:30px; cursor:pointer;">
+    Play Music 🎵
+  </button>
+
+  <audio id="test" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
+  </audio>
+
+  <p style="margin-top:40px;">If you hear music after tapping → problem solved!<br>If not → tell me what happens</p>
+</body>
+</html>
