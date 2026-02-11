@@ -20,14 +20,6 @@
     h1 { margin-bottom: 20px; }
     p { margin-bottom: 40px; font-size: 1.2rem; }
 
-    /* Important fix: Allow clicking on buttons */
-    button, a, input, select, textarea {
-      user-select: auto !important;
-      -webkit-user-select: auto !important;
-      pointer-events: auto !important;
-      cursor: pointer !important;
-    }
-
     #playBtn {
       padding: 20px 60px;
       font-size: 24px;
@@ -65,13 +57,13 @@
   <script>
     document.getElementById('playBtn').onclick = function() {
       const audio = document.getElementById('testAudio');
-      audio.volume = 0.4;
+      audio.volume = 0.5; // louder for test
       audio.play()
         .then(() => {
           alert("Music started! You should hear soft piano now 🎶");
         })
         .catch(e => {
-          alert("Error: " + e.message + "\n\nTry: \n1. Check laptop volume\n2. Click speaker icon in address bar → Allow sound\n3. Refresh page");
+          alert("Error: " + e.message + "\n\nTry:\n1. Check laptop volume\n2. Click speaker icon in address bar → Allow sound\n3. Refresh page");
         });
     };
   </script>
