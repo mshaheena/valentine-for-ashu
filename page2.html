@@ -308,7 +308,7 @@
     </div>
   </div>
 
-  <!-- Soft Romantic Music - River Flows in You with visible toggle button -->
+  <!-- Romantic Background Music with toggle button -->
   <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
     <button id="musicToggle" style="
       background: rgba(255, 107, 157, 0.35);
@@ -328,38 +328,43 @@
   </div>
 
   <audio id="romanticMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d3a5c0b8b1.mp3" type="audio/mpeg">
+    <source src="romantic.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Unlock function (your original)
+    // Unlock function
     function unlock() {
-      const v = document.getElementById("code").value.trim();
-      if(v==="5/22" || v==="05/22" || v==="522" || v==="05-22"){
-        document.getElementById("lock").style.display="none";
-        document.getElementById("letter").style.display="block";
-        document.getElementById("heartbeat").play().catch(() => {});
-        // tiny confetti hearts
+      const input = document.getElementById("code").value.trim();
+      if (input === "5/22" || input === "05/22" || input === "522" || input === "05-22") {
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("letter").style.display = "block";
+
+        // Start subtle heartbeat sound
+        const hb = document.getElementById("heartbeat");
+        hb.volume = 0.12;
+        hb.play().catch(() => {});
+
+        // Tiny confetti hearts after 2 seconds
         setTimeout(() => {
-          for(let i=0;i<12;i++){
-            const h=document.createElement("div");
-            h.innerText="💞";
-            h.style.position="fixed";
-            h.style.fontSize="2rem";
-            h.style.left=Math.random()*100+"vw";
-            h.style.top="-10vh";
-            h.style.pointerEvents="none";
-            h.style.animation="rise 6s linear forwards";
+          for(let i = 0; i < 12; i++) {
+            let h = document.createElement('div');
+            h.innerText = '💞';
+            h.style.position = 'fixed';
+            h.style.fontSize = '2rem';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.top = '-10vh';
+            h.style.pointerEvents = 'none';
+            h.style.animation = 'rise 6s linear forwards';
             document.body.appendChild(h);
-            setTimeout(()=>h.remove(),7000);
+            setTimeout(() => h.remove(), 7000);
           }
         }, 1800);
       } else {
-        alert("That’s not the right key… try again 💕");
+        alert("That’s not our key yet… try again baby 💕");
       }
     }
 
-    // Click sparkle
+    // Click anywhere on letter to make tiny sparkle
     document.addEventListener('click', (e) => {
       if (document.getElementById('letter').style.display === 'block') {
         const sparkle = document.createElement('div');
@@ -390,7 +395,7 @@
           toggle.textContent = '🔇'; // show mute icon when playing
         }).catch(e => {
           console.log("Play failed:", e);
-          alert("Tap again or check your phone sound settings 💕");
+          alert("Tap again or check your sound settings dear 💕");
         });
       } else {
         music.pause();
