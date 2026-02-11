@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ashu Baby's Smile Makes My World Brighter 💫</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fdf6f0 0%, #ffeef5 50%, #fff5f9 100%);
+      font-family: 'Caveat', cursive;
+      overflow-y: auto; /* Allow scrolling if needed */
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Colorful floating hearts & falling flower petals with special effects */
+    .bg-float {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .heart, .petal {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.6)); /* special glow effect */
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(110vh) scale(0.5) rotate(0deg); }
+      15% { opacity: 0.9; }
+      85% { opacity: 0.9; }
+      100% { opacity: 0; transform: translateY(-30vh) scale(1.4) rotate(1080deg); }
+    }
+
+    .envelope-wrap {
+      position: relative;
+      width: 440px;
+      height: 300px;
+      perspective: 1600px;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.myfreetextures.com/wp-content/uploads/2014/10/old-paper-texture1.jpg') center/cover; /* working vintage parchment texture */
+      border: 4px solid #d4a373;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 30px 70px rgba(139,69,19,0.45);
+      transform-style: preserve-3d;
+      transition: transform 1.8s ease;
+    }
+
+    .envelope.open {
+      transform: rotateX(40deg);
+    }
+
+    .flap {
+      position: absolute;
+      top: -90px;
+      left: 0;
+      width: 100%;
+      height: 110px;
+      background: url('https://www.myfreetextures.com/wp-content/uploads/2014/10/old-paper-texture1.jpg') center/cover;
+      border: 4px solid #d4a373;
+      border-bottom: none;
+      border-radius: 18px 18px 0 0;
+      transform-origin: bottom;
+      transition: transform 1.8s ease;
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .seal {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #f5d6a3, #d4a373);
+      border-radius: 50%;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+      border: 5px solid #8b4513;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.4rem;
+      color: #fff;
+      text-shadow: 2px 2px 6px #000;
+      z-index: 5;
+    }
+
+    .content {
+      position: absolute;
+      inset: 30px;
+      background: rgba(255, 248, 240, 0.96);
+      border-radius: 14px;
+      padding: 40px 30px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.12);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.4s 0.8s;
+      text-align: center;
+      font-size: 1.7rem;
+      color: #5d4037;
+    }
+
+    .envelope.open .content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .his-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 8px solid #fff8f0;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      margin: 0 auto 25px;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      color: #c85a5a;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+    }
+
+    p {
+      font-size: 1.6rem;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .open-btn {
+      padding: 18px 70px;
+      background: linear-gradient(135deg, #ff9999, #ff6666);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255,102,102,0.5);
+      transition: all 0.4s;
+    }
+
+    .open-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 15px 45px rgba(255,102,102,0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts & petals -->
+  <div class="bg-float" id="bgFloat"></div>
+
+  <div class="envelope-wrap">
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+      <div class="flap" id="flap"></div>
+      <div class="seal">💌</div>
+      <div class="content">
+        <img src="image.jpg" alt="Ashu Baby" class="his-pic"/> 
+        <h1>Ashu Baby's Smile Makes My World Brighter 🤍</h1>
+        <p>This little secret is made only for you…<br>Tap below when your heart says yes 💕</p>
+        <button class="open-btn" onclick="window.location.href='index.html'">Open My Heart ❤️</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Floating hearts & petals
+    const items = ['❤️','💗','💖','🌸','🌺','🌷','🌹','✨','💫'];
+    function createFloat() {
+      const el = document.createElement('div');
+      el.className = Math.random() > 0.5 ? 'heart' : 'petal';
+      el.innerText = items[Math.floor(Math.random() * items.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (16 + Math.random() * 18) + 's';
+      el.style.animationDelay = Math.random() * 10 + 's';
+      el.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+      document.getElementById('bgFloat').appendChild(el);
+      setTimeout(() => el.remove(), 45000);
+    }
+    setInterval(createFloat, 400);
+
+    // Open envelope on click
+    function openEnvelope() {
+      document.getElementById('envelope').classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
