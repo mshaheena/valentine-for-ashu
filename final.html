@@ -19,34 +19,34 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 30px;
+      padding: 30px 20px;
     }
 
-    /* Big floating hearts */
-    .big-hearts {
+    /* Small floating hearts (gentle, not too big) */
+    .small-hearts {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 1;
     }
-    .big-heart {
+    .small-heart {
       position: absolute;
-      font-size: 5rem; /* big size */
-      opacity: 0.7;
-      animation: riseBigHeart 20s linear infinite;
+      font-size: 2.2rem; /* medium-small size */
+      opacity: 0.65;
+      animation: riseSmallHeart 22s linear infinite;
       color: #ff4d6d;
-      text-shadow: 0 0 20px rgba(255, 77, 109, 0.9);
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.7);
     }
-    @keyframes riseBigHeart {
-      0% { transform: translateY(120vh) scale(0.7) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.95; }
-      80% { opacity: 0.95; }
-      100% { transform: translateY(-40vh) scale(1.4) rotate(900deg); opacity: 0; }
+    @keyframes riseSmallHeart {
+      0% { transform: translateY(110vh) scale(0.7) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% { transform: translateY(-30vh) scale(1.2) rotate(720deg); opacity: 0; }
     }
 
     .container {
       display: flex;
-      max-width: 1200px;
+      max-width: 1100px;
       width: 95%;
       gap: 60px;
       align-items: center;
@@ -69,7 +69,7 @@
 
     h1 {
       font-family: 'Dancing Script', cursive;
-      font-size: 4.5rem;
+      font-size: 4.2rem;
       margin-bottom: 35px;
       color: #ff6b9d;
       text-shadow: 0 0 30px rgba(255, 107, 157, 0.8);
@@ -78,15 +78,15 @@
 
     @keyframes heartbeatForever {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.07); }
+      50% { transform: scale(1.06); }
     }
 
     .closing-text {
-      font-family: 'Caveat', cursive;      /* handwritten font */
-      font-size: 1.9rem;
+      font-family: 'Caveat', cursive;     /* real handwritten look */
+      font-size: 2rem;
       line-height: 1.9;
-      color: #5d0e1f;                      /* dark maroon - very clear */
-      text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 25px rgba(255,255,255,0.7);
+      color: #4a0c18;                     /* dark readable color */
+      text-shadow: 0 0 14px white, 0 0 20px white, 0 0 30px rgba(255,255,255,0.9);
       font-weight: 600;
       opacity: 0;
       animation: fadeInText 4s forwards;
@@ -140,8 +140,8 @@
 </head>
 <body>
 
-  <!-- Big floating hearts -->
-  <div class="big-hearts" id="bigHearts"></div>
+  <!-- Small floating hearts -->
+  <div class="small-hearts" id="smallHearts"></div>
 
   <div class="container">
     <!-- Left side - closing message (handwritten) -->
@@ -172,21 +172,20 @@
   </div>
 
   <script>
-    // Big floating hearts
+    // Small floating hearts
     const heartEmojis = ['❤️','💗','💖','💓','💞','💘','💝','💟'];
-    function createBigHeart() {
+    function createSmallHeart() {
       const h = document.createElement('div');
-      h.className = 'big-heart';
+      h.className = 'small-heart';
       h.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
       h.style.left = Math.random() * 100 + 'vw';
-      h.style.animationDuration = (8 + Math.random() * 8) + 's';
-      h.style.animationDelay = Math.random() * 8 + 's';
-      document.getElementById('bigHearts').appendChild(h);
-      setTimeout(() => h.remove(), 40000);
+      h.style.animationDuration = (22 + Math.random() * 18) + 's';
+      h.style.animationDelay = Math.random() * 10 + 's';
+      document.getElementById('smallHearts').appendChild(h);
+      setTimeout(() => h.remove(), 50000);
     }
-    setInterval(createBigHeart, 200);
+    setInterval(createSmallHeart, 700);
   </script>
 
 </body>
 </html>
-
