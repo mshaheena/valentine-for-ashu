@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Forever Starts Here ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #ffdde1, #ff9ec1, #ffd3b6);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    /* Small floating hearts (gentle, not too big) */
+    .small-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .small-heart {
+      position: absolute;
+      font-size: 2.2rem; /* medium-small size */
+      opacity: 0.65;
+      animation: riseSmallHeart 22s linear infinite;
+      color: #ff4d6d;
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.7);
+    }
+    @keyframes riseSmallHeart {
+      0% { transform: translateY(110vh) scale(0.7) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% { transform: translateY(-30vh) scale(1.2) rotate(720deg); opacity: 0; }
+    }
+
+    .container {
+      display: flex;
+      max-width: 1100px;
+      width: 95%;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .message {
+      flex: 1;
+      min-width: 340px;
+      animation: dawnRise 2.5s ease-out;
+    }
+
+    @keyframes dawnRise {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.2rem;
+      margin-bottom: 35px;
+      color: #ff6b9d;
+      text-shadow: 0 0 30px rgba(255, 107, 157, 0.8);
+      animation: heartbeatForever 2.8s infinite;
+    }
+
+    @keyframes heartbeatForever {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .closing-text {
+      font-family: 'Caveat', cursive;     /* real handwritten look */
+      font-size: 2rem;
+      line-height: 1.9;
+      color: #4a0c18;                     /* dark readable color */
+      text-shadow: 0 0 14px white, 0 0 20px white, 0 0 30px rgba(255,255,255,0.9);
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInText 4s forwards;
+      animation-delay: 1.2s;
+      margin-bottom: 40px;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+
+    .couple-pic {
+      flex: 1;
+      min-width: 340px;
+      max-width: 50%;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(232,74,95,0.45);
+      animation: fadeInImage 3s forwards;
+      animation-delay: 1.8s;
+    }
+
+    .couple-pic img {
+      width: 100%;
+      display: block;
+    }
+
+    @keyframes fadeInImage {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .replay-btn {
+      padding: 18px 70px;
+      background: linear-gradient(135deg, #ff6b9d, #ff85c0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.4s;
+      box-shadow: 0 12px 40px rgba(255,107,157,0.5);
+    }
+
+    .replay-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 18px 50px rgba(255,107,157,0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Small floating hearts -->
+  <div class="small-hearts" id="smallHearts"></div>
+
+  <div class="container">
+    <!-- Left side - closing message (handwritten) -->
+    <div class="message">
+      <h1>Our Forever Starts Here ✨</h1>
+      <div class="closing-text">
+        This isn't the end of our story, baby…<br>
+        It's the beautiful beginning — where every laugh, every dream,<br>
+        every quiet moment becomes ours.<br><br>
+
+        I see us growing together: more adventures, more inside jokes,<br>
+        more "you and me" against the world.<br>
+        Hand in hand, heart to heart — turning ordinary days<br>
+        into magic we'll never forget.<br><br>
+
+        You & me? We're just getting started.<br>
+        Can't wait for all the tomorrows with you 🤍💕
+      </div>
+      <button class="replay-btn" onclick="location.href='index.html'">
+        Let's Begin Again ❤️
+      </button>
+    </div>
+
+    <!-- Right side - couple pic -->
+    <div class="couple-pic">
+      <img src="couple.jpg" alt="Our future glimpse">
+    </div>
+  </div>
+
+  <script>
+    // Small floating hearts
+    const heartEmojis = ['❤️','💗','💖','💓','💞','💘','💝','💟'];
+    function createSmallHeart() {
+      const h = document.createElement('div');
+      h.className = 'small-heart';
+      h.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (22 + Math.random() * 18) + 's';
+      h.style.animationDelay = Math.random() * 10 + 's';
+      document.getElementById('smallHearts').appendChild(h);
+      setTimeout(() => h.remove(), 50000);
+    }
+    setInterval(createSmallHeart, 700);
+  </script>
+
+</body>
+</html>
